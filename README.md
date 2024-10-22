@@ -18,3 +18,18 @@
     Route=/ => Feed
     Route=/login => Login
     Route=/connections =?
+
+
+- Create the login Page 
+  -> Configure CORS in backend as the middileware
+  -> Allow the request origin as the whitelist
+  -> credentials true both in backend and frontend
+
+- Setup Redux
+  -> Install React redux + toolkit
+   -> Create the store (configure the store)
+   -> <Provider></Provider> in the   App.jsx so that every component will be having the redux store access
+   -> Create Slice 
+   -> add reducer to store
+
+

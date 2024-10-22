@@ -1,4 +1,11 @@
+import { useSelector } from "react-redux";
+
 const Navbar = () => {
+  // Subscribe to 'user' store
+  const user = useSelector((store) => store.user);
+  console.log(user);
+
+  // TO DO :- Show the Img url of user in dynamic way
   return (
     <div className="navbar bg-base-300">
       <div className="flex-1">
