@@ -1,9 +1,29 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { BASE_URL } from "../utils/Constants";
+import { removeUser } from "../utils/userSlice";
 
 const Navbar = () => {
   // Subscribe to 'user' store
   const user = useSelector((store) => store.user);
-  console.log(user);
+  const dispatch = useDispatch();
+
+  const navigate = useNavigate();
+
+  const handleLogoutUser = async () => {
+    try {
+      const res = await fetch(BASE_URL + "/logout", {
+        method: "POST",
+        credentials: "include",
+      });
+      //Clear the user data from the store
+      dispatch(removeUser());
+      return navigate("/login");
+    } catch (error) {
+      console.log(error);
+      navigate("/login");
+    }
+  };
 
   // TO DO :- Show the Img url of user in dynamic way
   return (
@@ -30,16 +50,19 @@ const Navbar = () => {
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
           >
             <li>
-              <a className="justify-between">
+              <Link to="/profile" className="justify-between">
                 Profile
                 <span className="badge">New</span>
-              </a>
+              </Link>
             </li>
             <li>
-              <a>Settings</a>
+              <Link to="/settings">Settings</Link>
             </li>
             <li>
-              <a>Logout</a>
+              <a onClick={handleLogoutUser}>Logout</a>
+            </li>
+            <li>
+              <Link to="/feed">Feed</Link>
             </li>
           </ul>
         </div>
