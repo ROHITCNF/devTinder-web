@@ -32,4 +32,9 @@
    -> Create Slice 
    -> add reducer to store
 
+-> Connections of Users (i.e connected )
+-> Requests recieved 
+   
+
+
 
