@@ -9,8 +9,7 @@ const Feed = () => {
 
   const getFeed = async () => {
     try {
-      if (feedDataInStore) {
-        console.log("feedDataInStore Is their so Api call will not happen");
+      if (feedDataInStore?.length) {
         return;
       }
       const feedApi = BASE_URL + "/user/feed";
@@ -30,11 +29,17 @@ const Feed = () => {
   }, []);
 
   return (
-    feedDataInStore && (
-      <div className="flex justify-center my-10">
-        <UserCard user={feedDataInStore[0]} />
-      </div>
-    )
+    <>
+      {feedDataInStore?.length ? (
+        <div className="flex justify-center my-10">
+          <UserCard user={feedDataInStore[0]} />
+        </div>
+      ) : (
+        <div className="flex justify-center my-10">
+          You have checked out all the Devs here
+        </div>
+      )}
+    </>
   );
 };
 

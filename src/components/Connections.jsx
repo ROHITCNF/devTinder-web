@@ -29,15 +29,17 @@ const Connections = () => {
         <h1 className="text-bold text-2xl">Connections</h1>
       </div>
       <div className="flex justify-center">
-        <ul className="menu bg-base-200 rounded-box w-64">
-          {connectionsDataFromStore?.length > 0 ? (
-            connectionsDataFromStore.map((connection) => (
-              <ConnectionItem key={connection?._id} user={connection} />
-            ))
-          ) : (
-            <div>No Connection found</div>
-          )}
-        </ul>
+        <div className="h-96 w-72 overflow-y-auto overflow-x-hidden bg-base-200 rounded-box">
+          <ul className="menu">
+            {connectionsDataFromStore?.length > 0 ? (
+              connectionsDataFromStore.map((connection) => (
+                <ConnectionItem key={connection?._id} user={connection} />
+              ))
+            ) : (
+              <div>No Connection found</div>
+            )}
+          </ul>
+        </div>
       </div>
     </div>
   );

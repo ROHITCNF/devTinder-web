@@ -30,10 +30,14 @@
    -> Create the store (configure the store)
    -> <Provider></Provider> in the   App.jsx so that every component will be having the redux store access
    -> Create Slice 
-   -> add reducer to store
+   -> add reducer to store  
 
 -> Connections of Users (i.e connected )
 -> Requests recieved 
+
+-- > TO DO :
+    -> Remove the id from existing redux store 
+    ->  instead of calling again the API ,modify teh redux store 
    
 
 

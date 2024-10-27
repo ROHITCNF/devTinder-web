@@ -8,8 +8,14 @@ import { BASE_URL } from "../utils/Constants";
 
 const login = () => {
   const [emailId, setEmailId] = useState("simran@gmail.com");
-  const [password, setPassword] = useState("abcdef");
+  const [password, setPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [gender, setGender] = useState("");
+  const [age, setAge] = useState();
+
   const [errorMessage, setErrorMessage] = useState("");
+  const [showSignUpPage, setShowSignUpPage] = useState(false);
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
@@ -17,6 +23,8 @@ const login = () => {
     navigate("/feed");
   };
   const handleLogin = async () => {
+    console.log("Handle Login");
+
     try {
       const loginApi = "http://localhost:7777/login";
       const params = {
@@ -43,6 +51,39 @@ const login = () => {
     }
   };
 
+  const handleSignUp = async () => {
+    try {
+      const signUpApi = "http://localhost:7777/signup";
+      const params = {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          emailId: emailId,
+          password: password,
+          age: age,
+          firstName: firstName,
+          lastName: lastName,
+          gender: gender,
+        }),
+      };
+      const response = await fetch(signUpApi, params);
+      const signUpData = await response.json();
+      if (signUpData?.code === 200) {
+        handleSignUpPageToShow();
+      } else {
+        setErrorMessage("User Validation Failed");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleSignUpPageToShow = () => {
+    setErrorMessage("");
+    setShowSignUpPage(!showSignUpPage);
+  };
   const checkIfuserIsLoggedIn = async () => {
     // this gatekeeper Api must be hit before Calling the login page
     // If User token is valid then directly navigate the user to feed page
@@ -84,27 +125,102 @@ const login = () => {
                 <span className="label-text">Password</span>
               </div>
               <input
-                type="text"
+                type="password"
                 value={password}
                 placeholder="Password"
                 className="input input-bordered w-full max-w-xs text-white"
                 onChange={(e) => setPassword(e.target.value)}
               />
             </label>
+            {showSignUpPage && (
+              <>
+                <label className="form-control w-full max-w-xs">
+                  <div className="label">
+                    <span className="label-text">firstname</span>
+                  </div>
+                  <input
+                    type="text"
+                    value={firstName}
+                    placeholder="firstName"
+                    className="input input-bordered w-full max-w-xs text-white"
+                    onChange={(e) => setFirstName(e.target.value)}
+                  />
+                </label>
+
+                <label className="form-control w-full max-w-xs">
+                  <div className="label">
+                    <span className="label-text">lastName</span>
+                  </div>
+                  <input
+                    type="text"
+                    value={lastName}
+                    placeholder="lastName"
+                    className="input input-bordered w-full max-w-xs text-white"
+                    onChange={(e) => setLastName(e.target.value)}
+                  />
+                </label>
+
+                <label className="form-control w-full max-w-xs">
+                  <div className="label">
+                    <span className="label-text">age</span>
+                  </div>
+                  <input
+                    type="number"
+                    value={age}
+                    placeholder="age"
+                    className="input input-bordered w-full max-w-xs text-white"
+                    onChange={(e) => setAge(e.target.value)}
+                  />
+                </label>
+
+                <label className="form-control w-full max-w-xs">
+                  <div className="label">
+                    <span className="label-text">gender</span>
+                  </div>
+                  <input
+                    type="text"
+                    value={gender}
+                    placeholder="gender"
+                    className="input input-bordered w-full max-w-xs text-white"
+                    onChange={(e) => setGender(e.target.value)}
+                  />
+                </label>
+              </>
+            )}
           </div>
           <p className="text-red-500 bold">{errorMessage}</p>
+
           <div className="card-actions justify-center">
             <button
               className="btn bg-cyan-500 hover:bg-cyan-600"
-              onClick={handleLogin}
+              onClick={showSignUpPage ? handleSignUp : handleLogin}
             >
-              Login
+              {showSignUpPage ? "Signup" : "Login"}
             </button>
           </div>
+
+          {/* SignUp content */}
+          {!showSignUpPage ? (
+            <div className="flex justify-center">
+              <p
+                className="text-white text-sm cursor-pointer"
+                onClick={handleSignUpPageToShow}
+              >
+                New User SignUp ?
+              </p>
+            </div>
+          ) : (
+            <div className="flex justify-center">
+              <p
+                className="text-white text-sm cursor-pointer"
+                onClick={handleSignUpPageToShow}
+              >
+                Existing user , Login?
+              </p>
+            </div>
+          )}
         </div>
       </div>
-      {/* {loginStatus === true && <Success />}
-      {loginStatus === false && <Failed />} */}
     </div>
   );
 };
