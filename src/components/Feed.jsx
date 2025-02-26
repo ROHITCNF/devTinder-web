@@ -32,7 +32,7 @@ const Feed = () => {
     <>
       {feedDataInStore?.length ? (
         <div className="flex justify-center my-10">
-          <UserCard user={feedDataInStore[0]} />
+          <UserCard user={{...feedDataInStore[0] , toShowButtons : true}} />
         </div>
       ) : (
         <div className="flex justify-center my-10">

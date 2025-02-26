@@ -3,7 +3,7 @@ import { addFeed } from "../utils/feedSlice";
 import { BASE_URL } from "../utils/Constants";
 const UserCard = ({ user }) => {
   const dispatch = useDispatch();
-  const { firstName, lastName, age, gender, photoUrl, about } = user;
+  const { firstName, lastName, age, gender, photoUrl, about  , toShowButtons} = user;
 
   const handleSendRequest = async (staus) => {
     try {
@@ -28,27 +28,29 @@ const UserCard = ({ user }) => {
   };
   return (
     <div className="card card-compact bg-base-300 w-96 shadow-xl">
-      <figure>
-        <img className="h-72" src={user?.photoUrl} alt="Shoes" />
+      <figure className="py-5" >
+        <img className="rounded-full h-72" src={user?.photoUrl} alt="Shoes" />
       </figure>
       <div className="card-body">
         <h2 className="card-title">{firstName + " " + lastName}</h2>
         <p>{age + " " + gender}</p>
         <p>{about}</p>
-        <div className="card-actions flex justify-center gap-3 py-4">
-          <button
-            onClick={() => handleSendRequest("ignored")}
-            className="btn btn-primary"
-          >
-            Ignore
-          </button>
-          <button
-            onClick={() => handleSendRequest("intrested")}
-            className="btn btn-secondary"
-          >
-            Intrested
-          </button>
-        </div>
+        {toShowButtons && (
+            <div className="card-actions flex justify-center gap-3 py-4">
+            <button
+              onClick={() => handleSendRequest("ignored")}
+              className="btn btn-primary"
+            >
+              Ignore
+            </button>
+            <button
+              onClick={() => handleSendRequest("intrested")}
+              className="btn btn-secondary"
+            >
+              Intrested
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

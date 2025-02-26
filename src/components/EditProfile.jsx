@@ -200,7 +200,7 @@ const EditProfile = ({ user }) => {
       {/* Profile View */}
       <div>
         <UserCard
-          user={{ firstName, lastName, about, age, gender, photoUrl }}
+          user={{ firstName, lastName, about, age, gender, photoUrl , toShowButtons : false }}
         />
       </div>
       {/* Toaster */}

@@ -5,6 +5,7 @@ import { BASE_URL } from "../utils/Constants";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../utils/userSlice";
 import { useEffect } from "react";
+import Feed from "./Feed";
 
 const Body = () => {
   const dispatch = useDispatch();

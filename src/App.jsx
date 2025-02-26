@@ -19,6 +19,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Body />}>
             {/* Children routes */}
+             <Route index element={<Feed/>}/> {/* Default route */}
             <Route path="/login" element={<Login />}></Route>
             <Route path="/profile" element={<Profile />}></Route>
             <Route path="/feed" element={<Feed />}></Route>
