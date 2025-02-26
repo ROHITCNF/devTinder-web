@@ -20,6 +20,7 @@ const Navbar = () => {
       dispatch(removeUser());
       return navigate("/login");
     } catch (error) {
+      dispatch(removeUser());
       console.log(error);
       navigate("/login");
     }
@@ -29,9 +30,9 @@ const Navbar = () => {
   return (
     <div className="navbar bg-base-300">
       <div className="flex-1">
-        <a className="btn btn-ghost text-xl">dEvTiNdEr</a>
+        <Link to={'/feed'}> <span className="btn btn-ghost text-xl">dEvTiNdEr</span></Link>
       </div>
-      <div className="flex-none gap-2 mx-5">
+     {user ?  <div className="flex-none gap-2 mx-5">
         <div className="dropdown dropdown-end">
           <div
             tabIndex={0}
@@ -69,7 +70,7 @@ const Navbar = () => {
             </li>
           </ul>
         </div>
-      </div>
+      </div>: ``}
     </div>
   );
 };
