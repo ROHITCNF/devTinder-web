@@ -30,7 +30,7 @@ const Navbar = () => {
   return (
     <div className="navbar bg-base-300">
       <div className="flex-1">
-        <Link to={'/feed'}> <span className="btn btn-ghost text-xl">dEvTiNdEr</span></Link>
+        <Link to={'/'}> <span className="btn btn-ghost text-xl">dEvTiNdEr</span></Link>
       </div>
      {user ?  <div className="flex-none gap-2 mx-5">
         <div className="dropdown dropdown-end">
@@ -42,7 +42,7 @@ const Navbar = () => {
             <div className="w-10 rounded-full">
               <img
                 alt="Tailwind CSS Navbar component"
-                src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                src={user?.photoUrl}
               />
             </div>
           </div>
@@ -53,7 +53,6 @@ const Navbar = () => {
             <li>
               <Link to="/profile" className="justify-between">
                 Profile
-                <span className="badge">New</span>
               </Link>
             </li>
             <li>
@@ -63,10 +62,10 @@ const Navbar = () => {
               <Link to="/requests">requests</Link>
             </li>
             <li>
-              <a onClick={handleLogoutUser}>Logout</a>
+              <Link to="/feed">Feed</Link>
             </li>
             <li>
-              <Link to="/feed">Feed</Link>
+              <a onClick={handleLogoutUser}>Logout</a>
             </li>
           </ul>
         </div>
