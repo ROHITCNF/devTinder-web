@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import UserCard from "./UserCard";
 import { BASE_URL } from "../utils/Constants";
 import { addUser } from "../utils/userSlice";
 import { useDispatch } from "react-redux";
 const EditProfile = ({ user }) => {
+  if(!user){
+    return <div> Loading...</div>
+  }
   const dispatch = useDispatch();
   const [showToaster, setShowToaster] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
@@ -26,6 +29,7 @@ const EditProfile = ({ user }) => {
   const [skills, setSkills] = useState(skillsToShow);
 
   const [errorMessage, setErrorMessage] = useState("");
+    
 
   const handleEditProfile = async () => {
     try {
@@ -63,6 +67,20 @@ const EditProfile = ({ user }) => {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    if(user && Object.keys(user).length){
+    setEmailId(user?.emailId);
+    setFirstname(user?.firstName);
+    setLastname(user?.lastName);
+    setAge(user?.age);
+    setGender(user?.gender);
+    setAbout(user?.about);
+    setPassword(user?.password);
+    setPhotoUrl(user?.photoUrl);
+    }
+  },[user]);
+
   return (
     <div className="flex justify-center my-10 gap-10">
       <div className="flex justify-center mx-10">
@@ -100,7 +118,7 @@ const EditProfile = ({ user }) => {
               </label>
               <label className="form-control w-full max-w-xs">
                 <div className="label">
-                  <span className="label-text">firstName</span>
+                  <span className="label-text">First Name</span>
                 </div>
                 <input
                   type="text"
@@ -112,7 +130,7 @@ const EditProfile = ({ user }) => {
               </label>
               <label className="form-control w-full max-w-xs">
                 <div className="label">
-                  <span className="label-text">lastName</span>
+                  <span className="label-text">Last Name</span>
                 </div>
                 <input
                   type="text"
@@ -124,7 +142,7 @@ const EditProfile = ({ user }) => {
               </label>
               <label className="form-control w-full max-w-xs">
                 <div className="label">
-                  <span className="label-text">age</span>
+                  <span className="label-text">Age</span>
                 </div>
                 <input
                   type="number"
@@ -136,9 +154,10 @@ const EditProfile = ({ user }) => {
               </label>
               <label className="form-control w-full max-w-xs">
                 <div className="label">
-                  <span className="label-text">gender</span>
+                  <span className="label-text">Gender</span>
                 </div>
                 <input
+                  disabled
                   type="text"
                   value={gender}
                   placeholder="gender"
@@ -148,7 +167,7 @@ const EditProfile = ({ user }) => {
               </label>
               <label className="form-control w-full max-w-xs">
                 <div className="label">
-                  <span className="label-text">imgUrl</span>
+                  <span className="label-text">Img-Url</span>
                 </div>
                 <input
                   type="text"
@@ -161,7 +180,7 @@ const EditProfile = ({ user }) => {
 
               <label className="form-control w-full max-w-xs">
                 <div className="label">
-                  <span className="label-text">about</span>
+                  <span className="label-text">About</span>
                 </div>
                 <input
                   type="text"
@@ -174,7 +193,7 @@ const EditProfile = ({ user }) => {
               {/* Skills will be in the array , split at each comma and populate  */}
               <label className="form-control w-full max-w-xs">
                 <div className="label">
-                  <span className="label-text">skills</span>
+                  <span className="label-text">Skills</span>
                 </div>
                 <input
                   type="text"
