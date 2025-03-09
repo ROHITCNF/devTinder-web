@@ -26,7 +26,7 @@ const login = () => {
     console.log("Handle Login");
 
     try {
-      const loginApi = "http://localhost:7777/login";
+      const loginApi =`${BASE_URL}/login`;
       const params = {
         method: "POST",
         credentials: "include",
@@ -53,7 +53,7 @@ const login = () => {
 
   const handleSignUp = async () => {
     try {
-      const signUpApi = "http://localhost:7777/signup";
+      const signUpApi = `${BASE_URL}/signup`;
       const params = {
         method: "POST",
         credentials: "include",
