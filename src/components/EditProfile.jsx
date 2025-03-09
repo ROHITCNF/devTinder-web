@@ -30,7 +30,14 @@ const EditProfile = ({ user }) => {
 
   const [errorMessage, setErrorMessage] = useState("");
     
-
+ const handleToaster = (message)=>{
+  setShowToaster(true);
+        setToastMessage(message);
+        setTimeout(() => {
+          setShowToaster(false);
+          setToastMessage("");
+        }, 1000);
+ }
   const handleEditProfile = async () => {
     try {
       const editProfileAPi = BASE_URL + "/profile/edit";
@@ -41,11 +48,10 @@ const EditProfile = ({ user }) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          password: password,
+         // password: password,
           firstName: firstName,
           lastName: lastName,
           age: age,
-          gender: gender,
           about: about,
           photoUrl: photoUrl,
           skills: skills.split(","),
@@ -56,15 +62,14 @@ const EditProfile = ({ user }) => {
       if (editedProfileResponse?.code === 200) {
         // update the store object
         dispatch(addUser(editedProfileResponse?.data));
-        setShowToaster(true);
-        setToastMessage(editedProfileResponse?.message);
-        setTimeout(() => {
-          setShowToaster(false);
-          setToastMessage("");
-        }, 3000);
+        handleToaster(editedProfileResponse?.message);
+      }
+      else{
+        handleToaster(editedProfileResponse?.message);
       }
     } catch (error) {
       console.log(error);
+      handleToaster('Some Error Occured');
     }
   };
 
