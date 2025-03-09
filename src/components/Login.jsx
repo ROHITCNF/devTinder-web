@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import Failed from "./Toaster/Failed";
-import Success from "./Toaster/success";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 import { useNavigate } from "react-router-dom";
